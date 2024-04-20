@@ -1,2 +1,3 @@
 # bitburner
- Scripts made for Bitburner
+
+ Scripts made for automating tasks in Bitburner.

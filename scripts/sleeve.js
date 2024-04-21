@@ -1,6 +1,5 @@
-/**
- * @param {NS} ns
- */
+/** @param {NS} ns */
+
 export async function main(ns) {
     for (let c = 0; c < 3; ++c) {
         for (let i = 0; i < ns.sleeve.getNumSleeves(); ++i) {

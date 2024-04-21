@@ -1,6 +1,5 @@
-/**
- * @param {NS} ns
- */
+/** @param {NS} ns */
+
 export async function main(ns) {
 	var serv = ns.args[0];
 	const file = ["BruteSSH.exe",

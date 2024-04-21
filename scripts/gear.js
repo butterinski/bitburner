@@ -1,6 +1,5 @@
-/**
- * @param {NS} ns
- */
+/** @param {NS} ns */
+
 export async function main(ns) {
 	let members = ns.gang.getMemberNames();
 	let equipment = ns.gang.getEquipmentNames();

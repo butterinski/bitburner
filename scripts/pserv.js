@@ -1,6 +1,5 @@
-/**
- * @param {NS} ns
- */
+/** @param {NS} ns */
+
 export async function main(ns) {
     let script = "hack.js";
     var ram = 8;

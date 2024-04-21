@@ -1,6 +1,5 @@
-/**
- * @param {NS} ns
- */
+/** @param {NS} ns */
+
 export async function gangfun(ns, task) {
 	const skill = ns.bladeburner.getSkillNames();
 	const ops = ns.bladeburner.getBlackOpNames();

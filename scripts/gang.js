@@ -1,17 +1,17 @@
-/**
- * @param {NS} ns
- */
+/** @param {NS} ns */
+
 export async function gangfun(ns, task) {
-	let members = ns.gang.getMemberNames();
-	let expThresh = 25000;
+ 	let members = ns.gang.getMemberNames();
+	let expThresh = 50000;
 
 	for (let i = 0; i < members.length; ++i) {
 		ns.gang.setMemberTask(members[i], task);
-		if (ns.gang.getMemberInformation(members[i]).def_exp > expThresh) {
+		if (ns.gang.getMemberInformation(members[i]).def_exp > expThresh && ns.args[1] === 1) {
 			ns.gang.ascendMember(members[i]);
 		}
 	}
 }
+
 export async function main(ns) {
 	var pow = ns.gang.getGangInformation().power;
 	var cachepow = pow;

@@ -1,6 +1,5 @@
-/**
- * @param {NS} ns
- */
+/** @param {NS} ns */
+
 export async function main(ns) {
     const pservList = ns.getPurchasedServers();
     for (var i = 0; i < pservList.length; ++i) {

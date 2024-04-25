@@ -4,7 +4,7 @@
 
 
 TODO:
-    Add Notes to scripts
-    Complete blade.js
-    Complete factions.js
-    Create corp.js
+Add Notes to scripts
+Complete blade.js
+Complete factions.js
+Create corp.js

@@ -6,7 +6,7 @@ export async function gangfun(ns, task) {
 
 	for (let i = 0; i < members.length; ++i) {
 		ns.gang.setMemberTask(members[i], task);
-		if (ns.gang.getMemberInformation(members[i]).def_exp > expThresh && ns.args[1] === 1) {
+		if (ns.gang.getMemberInformation(members[i]).def_exp > expThresh && ns.args[1] !== 0) {
 			ns.gang.ascendMember(members[i]);
 		}
 	}

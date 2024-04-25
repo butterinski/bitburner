@@ -32,5 +32,4 @@ export async function main(ns) {
 		}
 	}
 	ns.nuke(serv);
-	//ns.installBackdoor(serv);
 }

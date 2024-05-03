@@ -7,8 +7,6 @@ export async function main(ns) {
 					"I.I.I.I",
 					"run4theh111z"];
 
-	var script = "backdoor.js";
-
 	for (var i = 0; i < servlist.length; ++i) {
 		var serv = servlist[i];
 		if (ns.serverExists(serv)){
@@ -19,7 +17,7 @@ export async function main(ns) {
 			await ns.sqlinject(serv);
 			await ns.nuke(serv);
 			await ns.scp(script, serv);
-			ns.exec(script, serv, 1);
+//			ns.exec(script, serv, 1);
 		}
 	}
 }

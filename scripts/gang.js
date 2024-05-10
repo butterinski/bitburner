@@ -2,11 +2,11 @@
 
 export async function gangfun(ns, task) {
  	let members = ns.gang.getMemberNames();
-	let expThresh = 50000;
+	let expThresh = ns.args[1];
 
 	for (let i = 0; i < members.length; ++i) {
 		ns.gang.setMemberTask(members[i], task);
-		if (ns.gang.getMemberInformation(members[i]).def_exp > expThresh && ns.args[1] !== 0) {
+		if (ns.gang.getMemberInformation(members[i]).def_exp > expThresh && expThresh !== 0) {
 			ns.gang.ascendMember(members[i]);
 		}
 	}

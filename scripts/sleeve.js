@@ -5,107 +5,97 @@ export async function main(ns) {
     ns.disableLog('ALL');
     ns.tail();
 
-    const sleeveList = [];
-    for (let a = 0; a < ns.sleeve.getNumSleeves(); ++a) {
-//        if (ns.sleeve.getSleeve(a).sync < 100 || ns.sleeve.getSleeve(a).shock > 0) {
-              sleeveList.push(a);
-//        }
+    for (var i = 0; i < ns.sleeve.getNumSleeves(); ++i) {
+        ns.sleeve.setToShockRecovery(i);
+    } --i
+
+    while (ns.sleeve.getSleeve(i).shock > 20) {
+        ns.clearLog();
+        ns.print("Sleeve Shock: " + ns.sleeve.getSleeve(i).shock.toFixed(2) + "%");
+        await ns.sleep(10000);
     }
 
-    for (let c = 0; c < 5; ++c) {
-        for (let i = 0; i < sleeveList.length; ++i) {
-            switch (c) {
-                case 0:
-                    ns.sleeve.setToShockRecovery(sleeveList[i]);
-                    break;
+    for (i = 0; i < ns.sleeve.getNumSleeves(); ++i) {
+        ns.sleeve.setToSynchronize(i);
+    } --i
 
-                case 1:
-                    while (ns.sleeve.getSleeve(sleeveList[i]).shock > 0) {
-                        ns.clearLog();
-                        ns.print("Sleeve " + sleeveList[i] + ": " + ns.sleeve.getSleeve(sleeveList[i]).shock.toFixed(2) + "% Shock");
-                        await ns.sleep(60000);
-                    }
-                    ns.sleeve.setToSynchronize(sleeveList[i]);
-                    break;
+    while (ns.sleeve.getSleeve(i).sync < 100) {
+        ns.clearLog();
+        ns.print("Sleeve Sync: " + ns.sleeve.getSleeve(i).sync.toFixed(2) + "%");
+        await ns.sleep(10000);
+    }
+
+// BN4-3: UPDATE TO ns.sleeve.getSleeve(i).getCrimeChance("homicide") < 66 [MAYBE]
     
-                case 2:
-                    while (ns.sleeve.getSleeve(sleeveList[i]).sync < 100) {
-                        ns.clearLog();
-                        ns.print("Sleeve " + sleeveList[i] + ": " + ns.sleeve.getSleeve(sleeveList[i]).sync.toFixed(2) + "% Sync");
-                        await ns.sleep(60000);
-                    }
-                    ns.sleeve.setToCommitCrime(sleeveList[i], "Mug");
-                    break;
+    for (i = 0; i < ns.sleeve.getNumSleeves(); ++i) {
+        ns.sleeve.setToCommitCrime(i, "Mug");
+    } --i
 
-// BN4-3: UPDATE TO ns.sleeve.getSleeve(sleeveList[i]).getCrimeChance("homicide") < 66
-                case 3:
-                    while (ns.sleeve.getSleeve(sleeveList[i]).skills.defense < 125) {
-                        ns.clearLog();
-                        ns.print("Sleeve " + sleeveList[i] + ": Level " + ns.sleeve.getSleeve(sleeveList[i]).skills.defense);
-                        await ns.sleep(60000);
-                    }
-                    ns.sleeve.setToCommitCrime(sleeveList[i], "Homicide");
-                    break;
-    
-                case 4:
-                    while (ns.heart.break() > -54000) {
-                        ns.clearLog();
-                        ns.print("Karma: " + Math.trunc(ns.heart.break()));
-                        await ns.sleep(10000);
-                    }
-                    break;
-            }
-        }
-    }  
+    while (ns.sleeve.getSleeve(i).skills.defense < 125) {
+        ns.clearLog();
+        ns.print("Sleeve Defense: Lvl. " + ns.sleeve.getSleeve(i).skills.defense);
+        await ns.sleep(10000);
+    }
 
-    for (let i = 0; i < sleeveList.length; ++i) {
+    for (i = 0; i < ns.sleeve.getNumSleeves(); ++i) {
+        ns.sleeve.setToCommitCrime(i, "Homicide");
+    }
+
+    while (ns.heart.break() > -54000) {
+        ns.clearLog();
+        ns.print("Karma: " + Math.trunc(ns.heart.break()));
+        await ns.sleep(10000);
+    }
+
+
+
+    for (i = 0; i < ns.sleeve.getNumSleeves(); ++i) {
         switch (i) {
+
             case 0:
             case 1:
             case 2:
-                var task = "Take on contracts";
-                switch (i) {
-                    case 0:
-                        var contract = "Tracking";
-                        break;
-            
-                    case 1:
-                        var contract = "Bounty Hunter";
-                        break;
-
-                    case 2:
-                        var contract = "Retirement";
-                        break;
-
-                }
+                ns.sleeve.setToBladeburnerAction(i, "Training");
                 break;
-
+            
             case 3:
             case 4:
-                var task = "Field Analysis";
-                break;
-
             case 5:
+                ns.sleeve.setToBladeburnerAction(i, "Infiltrate Synthoids");
+                break;
+            
             case 6:
-                var task = "Infiltrate Synthoids";
+                ns.sleeve.setToBladeburnerAction(i, "Field Analysis");
                 break;
-
             case 7:
-                var task = "Training";
+                ns.sleeve.setToBladeburnerAction(i, "Diplomacy");
                 break;
-        }
-
-        switch (i) {
-            case 0:
-            case 1:
-            case 2:
-                ns.sleeve.setToBladeburnerAction(i, task, contract); 
-                break;
+                
+//            case 5:
+//            case 6:
+//            case 7:
+//                switch (i) {
+//                    case 5:
+//                        var contract = "Tracking";
+//                        break;
+//            
+//                    case 6:
+//                        var contract = "Bounty Hunter";
+//                        break;
+//
+//                    case 7:
+//                        var contract = "Retirement";
+//                        break;
+//                    default:
+//                        break;
+//
+//                }
+//                ns.sleeve.setToBladeburnerAction(i, "Take on contracts", contract);
+//                break;
 
             default:
-                ns.sleeve.setToBladeburnerAction(i, task);
+                ns.sleeve.setToBladeburnerAction(i, "Training");
                 break;
-    
         }
     } 
 }

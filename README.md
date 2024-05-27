@@ -1,6 +1,6 @@
 # bitburner
 
- Scripts made for automating tasks in Bitburner.
+ Scripts made for automating tasks in the game [Bitburner](https://store.steampowered.com/app/1812820/Bitburner/).
 
 
 TODO:

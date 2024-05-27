@@ -1,6 +1,6 @@
 /** @param {NS} ns */
 
-export async function gangfun(ns, task) {
+export async function gangFun(ns, task) {
  	let members = ns.gang.getMemberNames();
 	let expThresh = ns.args[1];
 
@@ -12,10 +12,28 @@ export async function gangfun(ns, task) {
 	}
 }
 
+export async function gangGear(ns) {
+	let members = ns.gang.getMemberNames();
+	const gear = ns.gang.getEquipmentNames();
+	var purchased = false;
+	let moneyThresh = 1000000000;
+
+   	for (let i = 11; i < members.length; ++i) {
+	   	if (ns.gang.getEquipmentCost("Graphene Bone Lacings") < 500000000 && ns.getServerMoneyAvailable("home") > moneyThresh) {
+	   		for (let c = 0; c < gear.length; ++c) {
+		   		ns.gang.purchaseEquipment(members[i], gear[c]);
+	   		}
+			var purchased = true;
+		}
+   	}
+	return purchased;
+}
+
 export async function main(ns) {
 	var pow = ns.gang.getGangInformation().power;
 	var cachepow = pow;
 	let n = ns.args[0];
+	var gearDone = false;
 
 	switch (n) {
 		case "cash": 
@@ -38,7 +56,7 @@ export async function main(ns) {
 			break;
 	}
 
-	gangfun(ns, "Territory Warfare");
+	gangFun(ns, "Territory Warfare");
 
 	while (true) {
 		await ns.sleep(1);
@@ -47,14 +65,17 @@ export async function main(ns) {
 		if (cachepow !== pow) {
 			
 			while (true) {
-				gangfun(ns, task);
+				gangFun(ns, task);
 				await ns.sleep(19875);
 				var pow = ns.gang.getGangInformation().power;
 				var cachepow = pow;
-				gangfun(ns, "Territory Warfare");
+				gangFun(ns, "Territory Warfare");
 				while (cachepow === pow) {
 					await ns.sleep(1);
 					var pow = ns.gang.getGangInformation().power;
+				}
+				if (gearDone === false){
+					var gearDone = await gangGear(ns);
 				}
 			}
 		}
